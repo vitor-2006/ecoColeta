@@ -1,6 +1,6 @@
 import { Coleta } from "./schemaColeta.js"
 
-export const getColeta = async (req, res) => {
+export const getColeta = async () => {
     try {
         return await Coleta.find()
     } catch (error) {
