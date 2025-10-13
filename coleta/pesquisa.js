@@ -7,7 +7,7 @@ function escapeRegex(text) {
 export const pesqPorEndereco = async (Endereco) => {
     try {
       const safeEndereco = escapeRegex(Endereco);
-      return await Coleta.find({ Endereco: { $regex: safeEndereco, $options: "i" } }).exec();
+      return await Coleta.find({ endereco: { $regex: safeEndereco, $options: "i" } }).exec();
     } catch (error) {
       console.error('Erro ao pesquisar Coleta', error.message);
       throw error;
@@ -17,7 +17,7 @@ export const pesqPorEndereco = async (Endereco) => {
 export const pesqPorTipoMaterial = async (TipoMaterial) => {
     try {
       const safeTipoMaterial = escapeRegex(TipoMaterial);
-      return await Coleta.find({ TipoMaterial: { $regex: safeTipoMaterial, $options: "i" } }).exec();
+      return await Coleta.find({ tipoMaterial: { $regex: safeTipoMaterial, $options: "i" } }).exec();
     } catch (error) {
       console.error('Erro ao pesquisar Coleta', error.message);
       throw error;
