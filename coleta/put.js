@@ -1,5 +1,4 @@
 import { Coleta } from "./schemaColeta.js"
-import { verificarDataEstrutura } from "./verificar.js"
 
 export const updateColeta = async (id, status) => {
     try {
