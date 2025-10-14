@@ -17,8 +17,8 @@ routesColeta.get('/coleta', async (req, res) => {
 });
 
 routesColeta.post('/coleta', async (req, res) => {
-    const { idEndereco, tipoMaterial, data, status } = req.body
-    const newColeta = await createColeta(idEndereco, tipoMaterial, data, status)
+    const { endereco, tipoMaterial, data, status } = req.body
+    const newColeta = await createColeta(endereco, tipoMaterial, data, status)
     if(!newColeta) {
         return res.status(400).send("Coleta inválida!")
     }
@@ -27,8 +27,8 @@ routesColeta.post('/coleta', async (req, res) => {
 
 routesColeta.put('/coleta/:id', async (req, res) => {
     const { id } = req.params
-    const { endereco, tipoMaterial, data, status } = req.body
-    const updatedColeta = await updateColeta(id, endereco, tipoMaterial, data, status)
+    const { status } = req.body
+    const updatedColeta = await updateColeta(id, status)
     if(updatedColeta) {
         return res.status(200).send({ message: 'Coleta atualizada com sucesso', coleta: updatedColeta })
     } else {

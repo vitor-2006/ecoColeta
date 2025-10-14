@@ -3,10 +3,6 @@ import { verificarDataEstrutura } from "./verificar.js"
 
 export const updateColeta = async (id, status) => {
     try {
-        const dataCerta = await verificarDataEstrutura(data)
-        if(!dataCerta){
-            return false
-        }
         const updatedColeta = await Coleta.findByIdAndUpdate(
             id,
             { status },
