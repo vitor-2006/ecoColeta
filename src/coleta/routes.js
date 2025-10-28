@@ -4,10 +4,11 @@ import { createColeta } from './post.js';
 import { updateColeta } from "./put.js"
 import { deleteColeta } from './delete.js';
 import { pesqPorEndereco, pesqPorStatus, pesqPorTipoMaterial } from './pesquisa.js';
+import { middleWare } from '../middleware/authentication.js';
 
 const routesColeta  = express.Router();
 
-routesColeta.get('/coleta', async (req, res) => {
+routesColeta.get('/coleta', middleWare, async (req, res) => {
     const Coletas = await getColeta()
     if(Coletas) {
         return res.status(200).send(Coletas)
@@ -16,7 +17,7 @@ routesColeta.get('/coleta', async (req, res) => {
     }
 });
 
-routesColeta.post('/coleta', async (req, res) => {
+routesColeta.post('/coleta', middleWare, async (req, res) => {
     const { endereco, tipoMaterial, data, status } = req.body
     const newColeta = await createColeta(endereco, tipoMaterial, data, status)
     if(!newColeta) {
@@ -25,7 +26,7 @@ routesColeta.post('/coleta', async (req, res) => {
     return res.status(201).send({ message: 'Coleta criada com sucesso', coleta: newColeta })
 });
 
-routesColeta.put('/coleta/:id', async (req, res) => {
+routesColeta.put('/coleta/:id', middleWare, async (req, res) => {
     const { id } = req.params
     const { status } = req.body
     const updatedColeta = await updateColeta(id, status)
@@ -36,7 +37,7 @@ routesColeta.put('/coleta/:id', async (req, res) => {
     }
 });
 
-routesColeta.delete('/coleta/:id', async (req, res) => {
+routesColeta.delete('/coleta/:id', middleWare, async (req, res) => {
     const { id } = req.params
     const deletedColeta = deleteColeta(id)
     if(deletedColeta) {
@@ -46,7 +47,7 @@ routesColeta.delete('/coleta/:id', async (req, res) => {
     }
 });
 
-routesColeta.get('/coleta/search', async (req, res) => {
+routesColeta.get('/coleta/search', middleWare, async (req, res) => {
     const { endereco, tipoMaterial, status } = req.query
     let searchColeta 
     if(endereco) {
